@@ -1,0 +1,45 @@
+
+topicExplorer.html 
+
+<template>
+    <lightning-card title="Topic Explorer" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-input label="Search Topics" value={searchTerm} onchange={handleSearch}></lightning-input>
+            
+            <div class="slds-grid slds-wrap slds-m-top_medium">
+                <template for:each={filteredTopics} for:item="topic">
+                    <div key={topic.id} class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-card title={topic.name}>
+                            <p class="slds-p-horizontal_small">{topic.description}</p>
+                            <div class="slds-p-horizontal_small slds-m-top_small">
+                                <lightning-button 
+                                    label={topic.selectLabel} 
+                                    data-id={topic.id} 
+                                    onclick={toggleSelect}
+                                    variant={topic.selectVariant}>
+                                </lightning-button>
+                                <lightning-button 
+                                    class="slds-m-left_small"
+                                    label="Learn More" 
+                                    onclick={navigateToLink} 
+                                    data-id={topic.link} 
+                                    variant="brand">
+                                </lightning-button>
+                            </div>
+                        </lightning-card>
+                    </div>
+                </template>
+            </div>
+
+            <template if:true={selectedTopics.length}>
+                <hr class="slds-m-vertical_medium"/>
+                <h2 class="slds-text-heading_medium">📌 My Selected Topics</h2>
+                <ul class="slds-list_dotted slds-m-top_small">
+                    <template for:each={selectedTopics} for:item="topic">
+                        <li key={topic.id}>{topic.name}</li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+    </lightning-card>
+</template>
